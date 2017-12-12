@@ -10,9 +10,12 @@ import android.util.Log;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
     boolean logon = false;
+    public static final int REQUEST_LOGIN = 102;
+    public static final int REQUEST_USERINFO = 105;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,19 +39,31 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
- /*   @Override
+   @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if (requestCode == LoginActivity){
-            if (resultCode == RESULT_OK){
-                String uid = data.getStringExtra("LOGIN_USERID");
-                String pw = data.getStringExtra("LOGIN_PASSWD");
-                Log.d("RESULT" , uid + "/" = pw);
-            }else{
-                finish();
-            }
+        switch (requestCode){
+            case REQUEST_LOGIN:
+                if (requestCode == RESULT_OK){
+                    String uid = data.getStringExtra("EXTRA_USERID");
+                    Toast.makeText(this , "Login userid:" + uid , Toast.LENGTH_LONG);
+                    getSharedPreferences("ATM" , MODE_PRIVATE)
+                            .edit()
+                            .putString("USERID" , uid)
+                            .apply();
+                }else{
+                    finish();
+                }
+                break;
+
+            case REQUEST_USERINFO:
+                if (requestCode == RESULT_OK){
+                    String name = data.getStringExtra("EXTRA_NAME");
+                    String phone = data.getStringExtra("EXTRA_PHONE");
+                    Toast.makeText(this , "NickName:" + name + "Phone" + phone , Toast.LENGTH_LONG).show();
+                }
         }
-    }*/
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

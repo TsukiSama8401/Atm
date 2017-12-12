@@ -22,7 +22,7 @@ public class LoginActivity extends AppCompatActivity {
         String pw = edPasswd.getText().toString();
         if(uid.equals("jack") && pw.equals("1234")){
             Toast.makeText(this , "登入成功" , Toast.LENGTH_LONG).show();
-            getIntent().putExtra("EXRA_USERID" , uid);
+            getIntent().putExtra("EXTRA_USERID" , uid);
             setResult(RESULT_OK , getIntent());
             finish();
         }else{
