@@ -50,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
                     getSharedPreferences("ATM" , MODE_PRIVATE)
                             .edit()
                             .putString("USERID" , uid)
-                            .apply();
+                            .commit();
                 }else{
                     finish();
                 }
