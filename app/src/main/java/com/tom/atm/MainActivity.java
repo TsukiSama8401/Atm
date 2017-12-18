@@ -13,57 +13,70 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
+    private final static int REQUEST_USERINFO = 105;
+    private final static int REQUEST_LOGIN = 102;
     boolean logon = false;
-    public static final int REQUEST_LOGIN = 102;
-    public static final int REQUEST_USERINFO = 105;
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch (requestCode) {
+            case REQUEST_LOGIN:
+                if (resultCode == RESULT_OK) {
+                    String userid = data.getStringExtra("LOGIN_USERID");
+                    String passwd = data.getStringExtra("LOGIN_PASSWD");
+                    Toast.makeText(this, "Login userid:" + userid, Toast.LENGTH_SHORT).show();
+                    getSharedPreferences("atm",MODE_PRIVATE)
+                            .edit()
+                            .putString("USERID",userid)
+                            .apply();
+                    Log.d("RESULT", userid + "/" + passwd);
+                } else {
+                    finish();
+                }
+                break;
+            case REQUEST_USERINFO:
+                if (resultCode == RESULT_OK) {
+                    String name = data.getStringExtra("nick name");
+                    String phone = data.getStringExtra("phonenumber");
+                    Toast.makeText(this, "Nickname : " + name, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, "Phonenumber :" + phone, Toast.LENGTH_SHORT).show();
+                    getSharedPreferences("info" , MODE_PRIVATE)
+                            .edit()
+                            .putString("Name" , name)
+                            .putString("Number" , phone)
+                            .apply();
+                }
+                break;
+
+        }
+
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        if(!logon){
-            Intent intent = new Intent(this , LoginActivity.class);
-            startActivity(intent);
-        }
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        if(!logon){
+            Intent intent = new Intent(this,LoginActivity.class );
+            //    startActivity(intent);
+            startActivityForResult(intent,REQUEST_LOGIN);
+        }
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Intent i = new Intent(MainActivity.this, UserInfoActivity.class);
+                startActivityForResult(i , REQUEST_USERINFO);
+                //    Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                //            .setAction("Action", null).show();
             }
         });
     }
 
-   @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        switch (requestCode){
-            case REQUEST_LOGIN:
-                if (requestCode == RESULT_OK){
-                    String uid = data.getStringExtra("EXTRA_USERID");
-                    Toast.makeText(this , "Login userid:" + uid , Toast.LENGTH_LONG);
-                    getSharedPreferences("ATM" , MODE_PRIVATE)
-                            .edit()
-                            .putString("USERID" , uid)
-                            .commit();
-                }else{
-                    finish();
-                }
-                break;
 
-            case REQUEST_USERINFO:
-                if (requestCode == RESULT_OK){
-                    String name = data.getStringExtra("EXTRA_NAME");
-                    String phone = data.getStringExtra("EXTRA_PHONE");
-                    Toast.makeText(this , "NickName:" + name + "Phone" + phone , Toast.LENGTH_LONG).show();
-                }
-        }
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

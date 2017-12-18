@@ -1,28 +1,40 @@
 package com.tom.atm;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
-import android.widget.Toast;
 
 public class UserInfoActivity extends AppCompatActivity {
+
+    private EditText edname;
+    private EditText edphone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user_info);
+        edname = (EditText) findViewById(R.id.edName);
+        edphone = (EditText) findViewById(R.id.edPhone);
+        String name =  getSharedPreferences("info" , MODE_PRIVATE)
+                .getString("Name" , "");
+        String phone = getSharedPreferences("info" , MODE_PRIVATE)
+                .getString("Number" , "");
+        edname.setText(name);
+        edphone.setText(phone);
     }
-    public void ok (View view){
-        EditText edName = (EditText)findViewById(R.id.edName);
-        EditText edPhone = (EditText)findViewById(R.id.edPhone);
-        String name = edName.getText().toString();
-        String phone = edPhone.getText().toString();
-        getIntent().putExtra("EXTRA_NAME" , name);
-        getIntent().putExtra("EXTRA_PHONE" , phone);
+    public void confirm(View view){
+
+        String name = edname.getText().toString();
+        String phone = edphone.getText().toString();
+        getIntent().putExtra("nick name" , name);
+        getIntent().putExtra("phonenumber" , phone);
         setResult(RESULT_OK , getIntent());
         finish();
     }
+
+
+
+
+
 }
