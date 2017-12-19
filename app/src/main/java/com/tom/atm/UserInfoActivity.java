@@ -13,7 +13,7 @@ import java.util.ArrayList;
 public class UserInfoActivity extends AppCompatActivity {
 
 
-    private static final String TAG = ;
+//    private static final String TAG = ;
     private EditText edname;
     private EditText edphone;
     private Spinner ages;
@@ -24,10 +24,15 @@ public class UserInfoActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user_info);
         ages = (Spinner) findViewById(R.id.ages);
         ArrayList<String>data = new ArrayList<>();
-        for (int i = 15 ;  i <= 40 ; i++){
-            data.add(i + "");
-        }
-        ArrayAdapter adapter = new ArrayAdapter(this , android.R.layout.simple_list_item_1 , data);
+//        for (int i = 15 ;  i <= 40 ; i++){
+ //           data.add(i + "");
+  //      }
+ //       ArrayAdapter adapter = new ArrayAdapter(this , android.R.layout.simple_list_item_1 , data);
+        ArrayAdapter adapter = new ArrayAdapter(
+                this , android.R.layout.simple_list_item_1 , getResources().getStringArray(R.array.ages)
+        );
+
+
         ages.setAdapter(adapter);
 
 
@@ -41,7 +46,7 @@ public class UserInfoActivity extends AppCompatActivity {
         edphone.setText(phone);
     }
     public void confirm(View view){
-        Log.d(TAG , "ok:" + ages.getSelectedItem().toString());
+//        Log.d(TAG , "ok:" + ages.getSelectedItem().toString());
         int age = Integer.parseInt(ages.getSelectedItem().toString());
         String name = edname.getText().toString();
         String phone = edphone.getText().toString();
