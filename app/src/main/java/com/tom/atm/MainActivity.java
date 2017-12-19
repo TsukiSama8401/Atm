@@ -48,14 +48,14 @@ public class MainActivity extends AppCompatActivity {
                             .apply();
                 }
                 break;
-
         }
-
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+     //   startActivity(intent , Ch8Activity.class);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
@@ -75,8 +75,6 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
-
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
