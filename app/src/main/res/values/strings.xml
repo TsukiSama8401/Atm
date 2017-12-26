@@ -29,4 +29,5 @@
         <item>39</item>
         <item>40</item>
     </string-array>
+    <string name="title_activity_addr">AddrActivity</string>
 </resources>

@@ -1,10 +1,12 @@
 package com.tom.atm;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Spinner;
 
@@ -32,10 +34,7 @@ public class UserInfoActivity extends AppCompatActivity {
                 this , android.R.layout.simple_list_item_1 , getResources().getStringArray(R.array.ages)
         );
 
-
         ages.setAdapter(adapter);
-
-
         edname = (EditText) findViewById(R.id.edName);
         edphone = (EditText) findViewById(R.id.edPhone);
         String name =  getSharedPreferences("info" , MODE_PRIVATE)
@@ -54,5 +53,11 @@ public class UserInfoActivity extends AppCompatActivity {
         getIntent().putExtra("phonenumber" , phone);
         setResult(RESULT_OK , getIntent());
         finish();
+    }
+
+    public void addr(View view){
+        Intent intent = new Intent(this , CityActivity.class);
+        startActivity(intent);
+
     }
 }
