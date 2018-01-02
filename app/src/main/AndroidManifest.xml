@@ -26,7 +26,8 @@
         <activity android:name=".CityActivity" />
         <activity android:name=".AreaActivity" />
         <activity android:name=".Area2Activity" />
-        <activity android:name=".Area3Activity"></activity>
+        <activity android:name=".Area3Activity" />
+        <activity android:name=".Tester"></activity>
     </application>
 
 </manifest>
